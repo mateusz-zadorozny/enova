@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enova Support Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        label,
+        input {
+            display: block;
+            margin: 10px 0;
+        }
+
+        .result {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Enova Support Calculator</h1>
+
+    <label for="chargerCost">Charger + installation:</label>
+    <input type="number" id="chargerCost" placeholder="NOK" value="0">
+
+    <p>Smart Charging package + installation: 6999 NOK</p>
+
+    <div class="result">
+        <p>Total cost for Enova support: <span id="totalCost">0</span> NOK</p>
+        <p>Enova Refund: <span id="enovaSupport">0</span> NOK</p>
+    </div>
+
+    <!-- Include CountUp library directly -->
+    <script src="https://cdn.jsdelivr.net/npm/countup.js@2.0.8/dist/countUp.umd.js"></script>
+
+    <script>
+        // Wait for the DOM to load
+        document.addEventListener('DOMContentLoaded', function () {
+            const smartChargingCost = 6999; // Smart Charging package constant
+
+            // Set up CountUp instances for results
+            const totalCostDisplay = new countUp.CountUp('totalCost', 0);
+            const enovaSupportDisplay = new countUp.CountUp('enovaSupport', 0);
+
+            // Function to recalculate the values
+            function recalculate() {
+                const chargerCost = parseFloat(document.getElementById('chargerCost').value) || 0;
+                const totalCost = chargerCost + smartChargingCost;
+                const enovaSupport = totalCost * 0.35;
+
+                // Animate the results with CountUp
+                totalCostDisplay.update(totalCost);
+                enovaSupportDisplay.update(enovaSupport);
+            }
+
+            // Add event listener to recalculate when charger cost changes
+            document.getElementById('chargerCost').addEventListener('input', recalculate);
+        });
+    </script>
+
+</body>
+
+</html>
